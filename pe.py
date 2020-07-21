@@ -14,8 +14,6 @@ def browse(sector):
     time.sleep(2)
     sector_name = driver.find_element_by_xpath('/html/body/div[2]/div[3]/div[2]/div/div[1]/div/h6').text
     sector_pe = driver.find_element_by_xpath('/html/body/div[2]/div[3]/div[2]/div/div[1]/div/a/div').text
-    sector_name.replace("PE" , "")
-    print(sector_name)
     print(sector_name," - " ,sector_pe, file= f)
 
 
