@@ -11,7 +11,6 @@ def browse():
     # dd/mm/YY
     d1 = today.strftime("%d-%m-%Y")
     print("d1 =", d1)
-    print(d1)
     print("Sleeping")
     driver = webdriver.Chrome()
     pelink = "https://www1.nseindia.com/products/content/equities/indices/historical_pepb.htm"
@@ -23,11 +22,8 @@ def browse():
     driver.find_element_by_xpath('//*[@id="yield1"]').click()
     driver.find_element_by_xpath('//*[@id="get"]').click()
     time.sleep(5)
-     
+         
     
-    
-
-
 
 browse()
 
