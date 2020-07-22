@@ -1,5 +1,3 @@
-#pip3 install selenium
-#sudo apt-get install chromium-chromedriver
 from selenium import webdriver
 import constants  
 from os import path
@@ -9,7 +7,6 @@ driver = webdriver.Chrome()
 f = open('output.txt','w')
 
 def browse(sector):   
-    #print(sector)
     driver.get(sector)
     time.sleep(2)
     sector_name = driver.find_element_by_xpath('/html/body/div[2]/div[3]/div[2]/div/div[1]/div/h6').text
