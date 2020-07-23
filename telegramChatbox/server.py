@@ -1,23 +1,17 @@
 from bot import telegram_chatbot
 import os
-import url
-import valueinvest
 
 bot = telegram_chatbot("config.cfg")
 
 print("Server Running")
 
+
 def make_reply(msg):
+    reply = None
     if msg is not None:
-        answer = valueinvest.browse(msg)
-        os.system("clear")
-        #os.system("/usr/bin/python3 /home/shrihari/Desktop/javaScript/tools/valueInvest/valueinvest.py")
-        # f = open("/home/shrihari/Desktop/javaScript/tools/telegramChatbox/itc ltd.txt" ,"r")
-        # reply = f.read()
-        answer = answer.replace('&', 'and')
-        print(answer)
-        
-    return answer
+        f = open("/home/shrihari/Desktop/javaScript/tools/jobs/output.txt","r")
+        reply = f.read()
+    return reply
 
 update_id = None
 while True:
@@ -31,6 +25,6 @@ while True:
             except:
                 message = None
             from_ = item["message"]["from"]["id"]
-            bot.send_message("Processing..." + message , from_)
+            bot.send_message("Processing...", from_)
             reply = make_reply(message)
             bot.send_message(reply, from_)

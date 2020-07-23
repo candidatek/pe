@@ -3,6 +3,11 @@ import os
 from selenium.webdriver.common.keys import Keys
 import url
 import time
+from selenium.webdriver.chrome.options import Options
+
+options = Options()
+options.headless = True
+
 
 def error_handle(driver , xpath):
     try:
@@ -21,17 +26,20 @@ def intrest_coverage_ratio_error_handle(net_profit , intrest):
   
      
 
-def browse(company):  
-    driver = webdriver.Chrome()
-    print("Processing.. " , company) 
-    driver.get(url.scrneer)
-    time.sleep(2)
-    try:
+def browse(company): 
+    try: 
+        driver = webdriver.Chrome(options=options)
+        print("Processing.. " , company) 
+        driver.get(url.scrneer)
+        time.sleep(2)
+    
+        
         company_search = driver.find_element_by_xpath('//*[@id="content-area"]/div/div/div/div/input')
         company_search.send_keys(company)
         company_search.send_keys(Keys.ENTER)
         company_search.send_keys(Keys.RETURN)
         time.sleep(2)
+        current_price = error_handle(driver ,'//*[@id="content-area"]/section[1]/ul/li[2]' )
         company_name = error_handle(driver ,'//*[@id="company-info"]/h1' )
         market_cap = error_handle(driver ,'//*[@id="content-area"]/section[1]/ul/li[1]')
         stock_pe = error_handle(driver ,'//*[@id="content-area"]/section[1]/ul/li[5]')
@@ -45,7 +53,7 @@ def browse(company):
         driver.close()
     
         f = open(company_name + ".txt",'w')
-        print ( company_name, "\n",market_cap,"\n" ,stock_pe,"\n",price_by_book,"\n" ,"Net profit:",net_profit,"\n" ,"Intrest Coverage Ratio:", intrest_coverage_ratio,"\n" ,"Return on Equity:",roe,"\n" ,file = f)
+        print ( company_name, "\n",current_price,"\n",market_cap,"\n" ,stock_pe,"\n",price_by_book,"\n" ,"Net profit:",net_profit,"\n" ,"Intrest Coverage Ratio:", intrest_coverage_ratio,"\n" ,"Return on Equity:",roe,"\n" ,file = f)
         f.close()
         company_data = open(company_name + ".txt" , 'r')
         telegram_format = company_data.read()
